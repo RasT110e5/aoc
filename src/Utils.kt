@@ -5,8 +5,12 @@ import java.security.MessageDigest
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(name: String) = File("src", "$name.txt")
+private fun readInput(path: String) = File(path)
     .readLines()
+
+fun readTest(day:Int) = readInput(DayConfigurer(day).testFile())
+fun readPart1(day:Int) = readInput(DayConfigurer(day).part1())
+fun readPart2(day:Int) = readInput(DayConfigurer(day).part2())
 
 /**
  * Converts string to md5 hash.
