@@ -14,8 +14,9 @@ fun main() {
 }
 
 class DayConfigurer(day: Int) {
+  private val dayKt = "Day$day"
   private val dayFolder = "input/day_$day"
-  private val dayKtFile = "src/Day$day.kt"
+  private val dayKtFile = "src/$dayKt.kt"
 
   fun createDayInputFiles() {
     val dir = File(dayFolder)
@@ -25,9 +26,9 @@ class DayConfigurer(day: Int) {
     createFileIn(part2File, dir)
   }
 
-  fun createDayKtFile(){
+  fun createDayKtFile() {
     val template = File(templateFile)
-    Files.copy(template.toPath(), Path.of(dayKtFile))
+    Files.write(Path.of(dayKtFile), template.readLines().map { it.replace("Day1", dayKt) }.toList())
   }
 
   fun testFile() = "$dayFolder/$testFile"
