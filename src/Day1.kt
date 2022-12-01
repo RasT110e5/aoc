@@ -24,16 +24,19 @@ class Day1(private val input: List<String>) {
     for (line in input)
       if (line.isNotBlank())
         elf.addFood(line.toInt())
-      else {
-        elf = Elf()
-        elves.add(elf)
-      }
+      else
+        elf = addNewElf(elves)
     return elves
+  }
+
+  private fun addNewElf(elves: MutableList<Elf>): Elf {
+    val elf = Elf()
+    elves.add(elf)
+    return elf
   }
 }
 
-class Elf(private val foods: MutableList<Int> = mutableListOf()) {
-
+data class Elf(private val foods: MutableList<Int> = mutableListOf()) {
   fun addFood(food: Int) {
     this.foods.add(food)
   }
