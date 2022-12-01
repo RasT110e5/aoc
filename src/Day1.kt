@@ -15,7 +15,7 @@ class Day1(private val input: List<String>) {
 
   fun part2(): Int {
     return groupFoodByElf().map { it.totalCalories() }
-      .sortedDescending().subList(0, 3).sum()
+      .sorted().takeLast(3).sum()
   }
 
   private fun groupFoodByElf(): MutableList<Elf> {

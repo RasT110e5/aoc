@@ -2,18 +2,16 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 
-
 private const val testFile = "test.txt"
 private const val part1File = "part1.txt"
 private const val part2File = "part2.txt"
 private const val templateFile = "src/Template.txt"
 
 fun main() {
-  val configurer = DayConfigurer(1)
+  val configurer = DayConfigurer(2)
   configurer.createDayInputFiles()
   configurer.createDayKtFile()
 }
-
 
 class DayConfigurer(day: Int) {
   private val dayFolder = "input/day_$day"
