@@ -3,7 +3,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 
-private const val testFile = "text.txt"
+private const val testFile = "test.txt"
 private const val part1File = "part1.txt"
 private const val part2File = "part2.txt"
 private const val templateFile = "src/Template.txt"
