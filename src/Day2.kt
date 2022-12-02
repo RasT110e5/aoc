@@ -6,39 +6,41 @@ fun main() {
   println(Day2(readTest(day)).part2())
 
   println("Answers:")
-  println("Part 1=" + Day2(readPart1(day)).part1())
-  println("Part 2=" + Day2(readPart2(day)).part2())
+  println("Part 1=" + Day2(readInput(day)).part1())
+  println("Part 2=" + Day2(readInput(day)).part2())
 }
 
 class Day2(private val input: List<String>) {
   fun part1(): Int {
-    var score = 0
-    for (round in input) {
-      val selections = round.split(" ")
-      val opponentPlay = Selection.valueOf(selections[0])
-      val yourPlay = Selection.byStrategy(selections[1].single())
-      score += yourPlay.value
-      if (yourPlay.winsAgainst(opponentPlay)) score += 6
-      else if (isDraw(yourPlay, opponentPlay)) score += 3
+    return getParsedInput().sumOf {
+      val opponent = Selection.valueOf(it[0].toString())
+      val yours = Selection.byStrategy(it[1])
+      if (opponent.winsAgainst(yours))
+        yours.value + 6
+      else if (isDraw(yours, opponent))
+        yours.value + 3
+      else
+        yours.value
     }
-    return score
+  }
+
+  fun part2(): Int {
+    return getParsedInput().sumOf {
+      val opponentPlay = Selection.valueOf(it[0].toString())
+      when (it[1]) {
+        'X' -> opponentPlay.beats().value
+        'Y' -> opponentPlay.value + 3
+        'Z' -> opponentPlay.losses().value + 6
+        else -> 0
+      }
+    }
+  }
+
+  private fun getParsedInput() = input.map {
+    it.split(" ").map { selection -> selection.single() }
   }
 
   private fun isDraw(yourPlay: Selection, opponentPlay: Selection) = yourPlay == opponentPlay
-
-  fun part2(): Int {
-    var score = 0
-    for (round in input) {
-      val selections = round.split(" ")
-      val opponentPlay = Selection.valueOf(selections[0])
-      when (selections[1].single()) {
-        'X' -> score += opponentPlay.beats().value
-        'Y' -> score += opponentPlay.value + 3
-        'Z' -> score += opponentPlay.losses().value + 6
-      }
-    }
-    return score
-  }
 }
 
 enum class Selection(val value: Int) {
