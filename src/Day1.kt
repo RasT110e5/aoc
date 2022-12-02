@@ -4,8 +4,8 @@ fun main() {
   println(Day1(readTest(day)).part2())
 
   println("Answers:")
-  println("Part 1=" + Day1(readPart1(day)).part1())
-  println("Part 2=" + Day1(readPart2(day)).part2())
+  println("Part 1=" + Day1(readInput(day)).part1())
+  println("Part 2=" + Day1(readInput(day)).part2())
 }
 
 class Day1(private val input: List<String>) {
