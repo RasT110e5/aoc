@@ -10,21 +10,21 @@ fun main() {
 
 class Day4(private val input: List<String>) {
   fun part1(): Int {
-    return getSectionsByElf().count {
-      it[0].containsAll(it[1]) || it[1].containsAll(it[0])
+    return getSectionsByElf().count { (firstRangeSections, lastRangeSections) ->
+      firstRangeSections.containsAll(lastRangeSections) || lastRangeSections.containsAll(firstRangeSections)
     }
   }
 
   fun part2(): Int {
-    return getSectionsByElf().count {
-      it[0].intersect(it[1]).isNotEmpty()
+    return getSectionsByElf().count { (firstRangeSections, lastRangeSections) ->
+      firstRangeSections.intersect(lastRangeSections).isNotEmpty()
     }
   }
 
   private fun getSectionsByElf() = input.map { line ->
     line.split(",").map {
-      val bounds = it.split("-")
-      bounds[0].toInt().rangeTo(bounds[1].toInt()).toSet()
+      val bounds = it.split("-").map { bound -> bound.toInt() }
+      bounds[0].rangeTo(bounds[1]).toSet()
     }
   }
 }
