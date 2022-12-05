@@ -1,5 +1,4 @@
 import java.util.*
-import kotlin.collections.ArrayDeque
 
 fun main() {
   val day = 5
@@ -27,32 +26,32 @@ class Day5(private val input: List<String>) {
     movementNumbers.forEach { (a, b, c) ->
       if (a == 1) moveCratesFromStacksInPopOrder(stacks, b, c)
       else {
-        val crates = mutableListOf<Char>().apply { repeat(a) { add(stacks[b - 1].removeLast()) } }
+        val crates = mutableListOf<Char>().apply { repeat(a) { add(stacks[b - 1].pop()) } }
         crates.reverse()
-        crates.forEach { stacks[c - 1].add(it) }
+        crates.forEach { stacks[c - 1].push(it) }
       }
     }
     return joinTopOfStackCrates(stacks)
   }
 
-  private fun joinTopOfStackCrates(stacks: MutableList<ArrayDeque<Char>>) =
-    stacks.map { it.first() }.joinToString("")
+  private fun joinTopOfStackCrates(stacks: MutableList<Stack<Char>>) =
+    stacks.map { it.peek() }.joinToString("")
 
   private fun moveCratesFromStacksInPopOrder(
-    stacks: MutableList<ArrayDeque<Char>>,
+    stacks: MutableList<Stack<Char>>,
     from: Int,
     to: Int
   ) {
     val stackFrom = stacks[from - 1]
-    val crate = stackFrom.removeLast()
-    stacks[to - 1].add(crate)
+    val crate = stackFrom.pop()
+    stacks[to - 1].push(crate)
   }
 
-  private fun readInitialStacks(): MutableList<ArrayDeque<Char>> {
-    return mutableListOf<ArrayDeque<Char>>().apply {
+  private fun readInitialStacks(): MutableList<Stack<Char>> {
+    return mutableListOf<Stack<Char>>().apply {
       input[0].split(",").forEach { line ->
-        val stack = ArrayDeque<Char>()
-        line.forEach { stack.add(it) }
+        val stack = Stack<Char>()
+        line.forEach { stack.push(it) }
         add(stack)
       }
     }
