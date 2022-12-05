@@ -7,7 +7,7 @@ private const val part1File = "input.txt"
 private const val templateFile = "src/Template.txt"
 
 fun main() {
-  val configurer = DayConfigurer(4)
+  val configurer = DayConfigurer(5)
   configurer.createDayInputFiles()
   configurer.createDayKtFile()
 }

@@ -2,18 +2,16 @@ import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
 
-/**
- * Reads lines from the given input txt file.
- */
+private val regexPosInt = Regex("""\d+""")
 private fun readInput(path: String) = File(path)
-    .readLines()
+  .readLines()
 
-fun readTest(day:Int) = readInput(DayConfigurer(day).testFile())
-fun readInput(day:Int) = readInput(DayConfigurer(day).part1())
-
-/**
- * Converts string to md5 hash.
- */
+fun readTest(day: Int) = readInput(DayConfigurer(day).testFile())
+fun readInput(day: Int) = readInput(DayConfigurer(day).part1())
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
-    .toString(16)
-    .padStart(32, '0')
+  .toString(16)
+  .padStart(32, '0')
+
+fun String.numbers(): List<Int> = regexPosInt.findAll(this).map { it.value.toInt() }.toList()
+fun String.toNumbersWithin(): List<Int> = numbers()
+fun Iterable<String>.toNumbersWithin(): List<List<Int>> = map { it.toNumbersWithin() }
