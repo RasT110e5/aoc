@@ -10,21 +10,15 @@ fun main() {
 
 class Day6(private val input: List<String>) {
   fun part1(): Int {
-    input[0].forEachIndexed { index, _ ->
-      if (checkIndexForProtocolKey(index, 4)) return index + 4
-    }
-    return -1
+    return checkForProtocolMarkerWithSize(4)
   }
 
   fun part2(): Int {
-    input[0].forEachIndexed { index, _ ->
-      if (checkIndexForProtocolKey(index, 14)) return index + 14
-    }
-    return -1
+    return checkForProtocolMarkerWithSize(14)
   }
 
-  private fun checkIndexForProtocolKey(index: Int, sizeOfKey: Int): Boolean {
-    return input[0].subSequence(index, index + sizeOfKey).toSet().size == sizeOfKey
+  private fun checkForProtocolMarkerWithSize(sizeOfKey: Int): Int {
+    return input[0].windowed(sizeOfKey).indexOfFirst { it.toSet().size == sizeOfKey } + sizeOfKey
   }
 }
 
