@@ -81,6 +81,6 @@ data class File(
   }
 
   override fun toString(): String {
-    return "File(name='$name', parent=$parent, childrenTotalSize=$childrenTotalSize"
+    return "File(name='$name', childrenTotalSize=$childrenTotalSize)"
   }
 }
