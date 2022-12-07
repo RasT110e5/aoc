@@ -15,3 +15,5 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
 fun String.numbers(): List<Int> = regexPosInt.findAll(this).map { it.value.toInt() }.toList()
 fun String.toNumbersWithin(): List<Int> = numbers()
 fun Iterable<String>.toNumbersWithin(): List<List<Int>> = map { it.toNumbersWithin() }
+fun <T> T.log(): T = this.also { println(it) }
+fun <T> T.log(msg: String): T = this.also { println("$msg $it") }
