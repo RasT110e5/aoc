@@ -38,8 +38,9 @@ class Day7(private val input: List<String>) {
     inputSkippingFirstStaticLine.forEach {
       when {
         it.startsWith(goToParent) -> current = current.parent!!
-        it.startsWith(changeDir) -> current = changeDirectory(it.replace(changeDir, ""), current)
+        it.startsWith(changeDir) -> current = changeToNewDirectory(it.replace("$changeDir ", ""), current)
         it.first().isDigit() -> addFileToDir(current, it.split(" ").first())
+        else -> println("Skipped command '$it'")
       }
     }
     return root.directories()
@@ -49,8 +50,9 @@ class Day7(private val input: List<String>) {
     file.childrenTotalSize += fileSize.toInt()
   }
 
-  private fun changeDirectory(dirName: String, current: File): File {
+  private fun changeToNewDirectory(dirName: String, current: File): File {
     val newDir = File(dirName, current)
+    println(newDir)
     current.children.add(newDir)
     return newDir
   }
@@ -81,6 +83,9 @@ data class File(
   }
 
   override fun toString(): String {
-    return "File(name='$name', childrenTotalSize=$childrenTotalSize)"
+    return if (name == "/")
+      "RootDir"
+    else
+      "File(name='$name', parent=$parent)"
   }
 }
