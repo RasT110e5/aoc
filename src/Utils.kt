@@ -17,12 +17,8 @@ fun String.toNumbersWithin(): List<Int> = numbers()
 fun Iterable<String>.toNumbersWithin(): List<List<Int>> = map { it.toNumbersWithin() }
 private fun String.charGrid() = this.map { it }
 fun Iterable<String>.charGrid(): List<List<Char>> = map { it.charGrid() }
-private fun String.numberGrid() : List<Int> = this.map { it.code }
+private fun String.numberGrid(): List<Int> = this.map { it.code }
 fun Iterable<String>.numberGrid(): List<List<Int>> = map { it.numberGrid() }
 fun <T> List<List<T>>.transpose(): List<List<T>> =
-  List(this[0].size) { widthIndex ->
-    List(this.size) { heightIndex ->
-      this[heightIndex][widthIndex]
-    }
-  }
+  List(this[0].size) { rowIndex -> List(this.size) { columnIndex -> this[columnIndex][rowIndex] } }
 
