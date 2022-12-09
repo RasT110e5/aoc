@@ -12,6 +12,7 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
   .toString(16)
   .padStart(32, '0')
 
+fun String.betweenSpaces() = this.split(" ").filter { it.isNotBlank() }
 fun String.numbers(): List<Int> = regexPosInt.findAll(this).map { it.value.toInt() }.toList()
 fun String.toNumbersWithin(): List<Int> = numbers()
 fun Iterable<String>.toNumbersWithin(): List<List<Int>> = map { it.toNumbersWithin() }
@@ -21,4 +22,5 @@ private fun String.numberGrid(): List<Int> = this.map { it.code }
 fun Iterable<String>.numberGrid(): List<List<Int>> = map { it.numberGrid() }
 fun <T> List<List<T>>.transpose(): List<List<T>> =
   List(this[0].size) { rowIndex -> List(this.size) { columnIndex -> this[columnIndex][rowIndex] } }
+
 
