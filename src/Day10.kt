@@ -2,8 +2,8 @@ import kotlin.math.abs
 
 fun main() {
   val day = 10
-//  println(Day10(readTest(day)).part1())
-//  println(Day10(readTest(day)).part2())
+  println(Day10(readTest(day)).part1())
+  println(Day10(readTest(day)).part2())
 
   println("Answers:")
   println("Part 1=" + Day10(readInput(day)).part1())
