@@ -11,7 +11,7 @@ fun main() {
 }
 
 class Day9(private val input: List<String>) {
-  private val offsetOnRow = hashMapOf('R' to 0, 'L' to 0, 'U' to -1, 'D' to 1)
+  private val offsetOnRow = hashMapOf('R' to 0, 'L' to 0, 'U' to 1, 'D' to -1)
   private val offsetOnColumn = hashMapOf('R' to 1, 'L' to -1, 'U' to 0, 'D' to 0)
 
   fun part1(): Int {
