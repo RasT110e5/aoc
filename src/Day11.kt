@@ -14,7 +14,7 @@ class Day11(private val input: List<String>) {
     monkeys.forEach { it.afterMainOperation = { item -> Math.floorDiv(item, 3) } }
     for (round in 1..20) {
       for (monkey in monkeys) monkey.inspectItems()
-      printMonkeyStatus(round, monkeys)
+//      printMonkeyStatus(round, monkeys)
     }
     return getFirstTimesBySecondInspections(monkeys)
   }
@@ -25,9 +25,7 @@ class Day11(private val input: List<String>) {
     monkeys.forEach { it.afterMainOperation = { item -> item % commonDiv } }
     for (round in 1..10_000) {
       for (monkey in monkeys) monkey.inspectItems()
-      if (round in listOf(1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10_000)) {
-        printMonkeyStatus(round, monkeys)
-      }
+//      if (round in listOf(1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10_000)) printMonkeyStatus(round, monkeys)
     }
     return getFirstTimesBySecondInspections(monkeys)
   }
@@ -70,30 +68,26 @@ data class Monkey(
   val ifFalse: Int
 ) {
   lateinit var afterMainOperation: (Long) -> Long
-  private val parsedOp: (Long) -> Long
+  private val operation: (Long) -> Long
   var inspections = 0L
   var monkeyToThrowOnTrue: Monkey? = null
   var monkeyToThrowOnFalse: Monkey? = null
 
   init {
     val numberOp = if (op.substring(4) == "old") null else op.substring(4).toLong()
-    parsedOp = when (op[3]) {
-      '+' -> { a -> a + (numberOp ?: a) }
-      else -> { a -> a * (numberOp ?: a) }
+    operation = when (op[3]) {
+      '+' -> { a -> afterMainOperation.invoke(a + (numberOp ?: a)) }
+      else -> { a -> afterMainOperation(a * (numberOp ?: a)) }
     }
   }
 
   private fun processFirstItem() {
     val item = items.removeFirst()
-    val result = calculateResult(item)
+    val result = operation.invoke(item)
     if (result % divisible == 0L)
       monkeyToThrowOnTrue?.items?.add(result)
     else
       monkeyToThrowOnFalse?.items?.add(result)
-  }
-
-  private fun calculateResult(item: Long): Long {
-    return afterMainOperation.invoke(parsedOp.invoke(item))
   }
 
   fun inspectItems() {
