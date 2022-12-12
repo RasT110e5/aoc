@@ -27,11 +27,11 @@ class NumberGridBfs(
 
   fun shortest(): Int {
     initQueue()
-    val path = mutableSetOf<Pair<Int, Int>>()
+    val visited = mutableSetOf<Pair<Int, Int>>()
     while (deque.isNotEmpty()) {
       val stepWithValue = deque.removeFirst()
       val coordinate = stepWithValue.first
-      if (coordinate in path) continue else path.add(coordinate)
+      if (coordinate in visited) continue else visited.add(coordinate)
       if (coordinate == end) return stepWithValue.second
       for (direction in directions) {
         val directedCoordinate = coordinate + direction
