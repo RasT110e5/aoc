@@ -40,7 +40,7 @@ inline fun <T> Iterable<T>.splitOn(predicate: (T) -> Boolean): List<List<T>> {
   }
 }
 
-fun <E> List<List<E>>.getEvenWithNegative(coordinate: Pair<Int, Int>): E {
+fun <E> List<List<E>>.getAtCoordinate(coordinate: Pair<Int, Int>): E {
   fun parseIndex(index: Int, maxBound: Int): Int {
     return if (index < 0)
       if (index * -1 > maxBound)

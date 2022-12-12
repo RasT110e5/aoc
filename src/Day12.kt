@@ -15,11 +15,17 @@ class Day12(private val input: List<String>) {
   private var end: Pair<Int, Int> = -1 to -1
 
   fun part1(): Int {
-    return NumberGridBfs(parseGrid(listOf('S')), starts, end).shortest()
+    val bfs = NumberGridBfs(parseGrid(listOf('S')), starts, end)
+    val stepCount = bfs.shortest()
+    bfs.printGridWithPathAsChar(bfs.getShortestPath())
+    return stepCount
   }
 
   fun part2(): Int {
-    return NumberGridBfs(parseGrid(listOf('S', 'a')), starts, end).shortest()
+    val bfs = NumberGridBfs(parseGrid(listOf('S', 'a')), starts, end)
+    val stepCount = bfs.shortest()
+    bfs.printGridWithPathAsChar(bfs.getShortestPath())
+    return stepCount
   }
 
   private fun parseGrid(starChars: List<Char>): List<List<Int>> {
