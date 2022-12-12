@@ -1,6 +1,7 @@
 package util
 
 import getAtCoordinate
+import isValidCoordinate
 import plus
 
 class NumberGridBfs(
@@ -51,11 +52,8 @@ class NumberGridBfs(
       if (coordinate == end) return stepWithValue.second
       for (direction in directions) {
         val directedCoordinate = coordinate + direction
-        if (isValidCoordinate(directedCoordinate)) addIfValidStep(
-          directedCoordinate,
-          coordinate,
-          stepWithValue.second
-        )
+        if (grid.isValidCoordinate(directedCoordinate))
+          addIfValidStep(directedCoordinate, coordinate, stepWithValue.second)
       }
     }
     return -1
@@ -111,12 +109,4 @@ class NumberGridBfs(
     val previous = nodes.find { it.actual == previousCoordinate }
     nodes.add(Node(actualCoordinate, previous))
   }
-
-  private fun isValidCoordinate(coordinate: Pair<Int, Int>) =
-    isValidRow(grid, coordinate.first) && isValidColumn(grid, coordinate.second)
-
-  private fun isValidRow(grid: List<List<Int>>, directedColumn: Int) = (grid.indices).contains(directedColumn)
-
-  private fun isValidColumn(grid: List<List<Int>>, directedColumn: Int) =
-    (0 until grid.first().size).contains(directedColumn)
 }

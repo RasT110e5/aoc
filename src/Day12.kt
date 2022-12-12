@@ -3,7 +3,7 @@ import util.NumberGridBfs
 fun main() {
   val day = 12
   println(Day12(readTest(day)).part1())
-  println(Day12(readTest(day)).part2())
+//  println(Day12(readTest(day)).part2())
 
   println("Answers:")
   println("Part 1=" + Day12(readInput(day)).part1())
