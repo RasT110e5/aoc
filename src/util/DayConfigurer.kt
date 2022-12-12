@@ -1,3 +1,5 @@
+package util
+
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -7,7 +9,7 @@ private const val part1File = "input.txt"
 private const val templateFile = "src/Template.txt"
 
 fun main() {
-  val configurer = DayConfigurer(11)
+  val configurer = DayConfigurer(12)
   configurer.createDayInputFiles()
   configurer.createDayKtFile()
 }

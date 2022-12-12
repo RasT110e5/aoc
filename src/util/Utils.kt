@@ -1,3 +1,4 @@
+import util.DayConfigurer
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -39,6 +40,25 @@ inline fun <T> Iterable<T>.splitOn(predicate: (T) -> Boolean): List<List<T>> {
   }
 }
 
+fun <E> List<List<E>>.getEvenWithNegative(coordinate: Pair<Int, Int>): E {
+  fun parseIndex(index: Int, maxBound: Int): Int {
+    return if (index < 0)
+      if (index * -1 > maxBound)
+        throw Exception("Invalid negative index")
+      else
+        maxBound + index
+    else
+      index
+  }
 
+  val rows = this.size
+  val columns = this.first().size
+  val r = parseIndex(coordinate.first, rows)
+  val c = parseIndex(coordinate.second, columns)
+  return this[r][c]
+}
+
+operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> =
+  this.first + other.first to this.second + other.second
 
 
