@@ -16,7 +16,6 @@ class NumberGridBfs(
   private val directions = listOf(up, right, down, left)
   private lateinit var deque: ArrayDeque<Pair<Pair<Int, Int>, Int>>
   private val nodes = mutableSetOf<Node>()
-  private var bounds = start + end
 
   init {
     initQueue()
