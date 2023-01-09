@@ -2,6 +2,8 @@ import util.DayConfigurer
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import kotlin.math.max
+import kotlin.math.min
 
 private val regexPosInt = Regex("""\d+""")
 private fun readInput(path: String) = File(path)
@@ -61,4 +63,32 @@ fun <E> List<List<E>>.getAtCoordinate(coordinate: Pair<Int, Int>): E {
 operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> =
   this.first + other.first to this.second + other.second
 
+fun <T> List<Pair<T, T>>.getUniqueValuesFromPairs(): Set<T> = this
+  .map { (a, b) -> listOf(a, b) }
+  .flatten()
+  .toSet()
 
+fun <T> List<Pair<T, T>>.getUniqueValuesFromPairs(predicate: (T) -> Boolean): Set<T> = this
+  .map { (a, b) -> listOf(a, b) }
+  .flatten()
+  .filter(predicate)
+  .toSet()
+
+fun <E> List<List<E>>.isValidCoordinate(coordinate: Pair<Int, Int>): Boolean =
+  this.isValidRow(coordinate.first) && this.isValidColumn(coordinate.second)
+
+fun <E> List<List<E>>.isValidRow(column: Int): Boolean = (this.indices).contains(column)
+
+fun <E> List<List<E>>.isValidColumn(row: Int): Boolean = (0 until this.first().size).contains(row)
+
+fun Pair<Int, Int>.isOrigin(): Boolean = this.first == 0 && this.second == 0
+
+fun Int.range(i: Int) = min(this, i)..max(this, i)
+fun Int.anyDirectionalRange(other: Int) = if (this < other) this..other
+else this downTo other
+
+val Pair<Int,Int>.x: Int
+  get() = this.first
+
+val Pair<Int,Int>.y: Int
+  get() = this.second
